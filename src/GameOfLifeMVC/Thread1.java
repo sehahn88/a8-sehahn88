@@ -1,6 +1,8 @@
 package GameOfLifeMVC;
 
-public class Thread1 extends Thread implements Runnable {
+import javax.swing.SwingUtilities;
+
+public class Thread1 extends Thread {
 
 	private boolean done;
 	private GameOfLifeController golc;
@@ -13,18 +15,28 @@ public class Thread1 extends Thread implements Runnable {
 	public void halt() {
 		done = true;
 	}
-	public void begin() {
-		done = false;
-	}
 	
 	@Override
 	public void run() {
 		while (!done) {
 			try {Thread.sleep(golc.model.getMillisecondDelay());
 			} catch (InterruptedException e) {}
-			golc.handleCalculatorViewEvent(new AdvanceEvent());
+			SwingUtilities.invokeLater(new Updater(golc));
 		}
 		
 	}
 
+}
+
+class Updater implements Runnable {
+	private GameOfLifeController golc;
+	
+	public Updater(GameOfLifeController golc) {
+		this.golc = golc;
+	}
+	
+	@Override
+	public void run() {
+		golc.handleCalculatorViewEvent(new AdvanceEvent());
+	}
 }

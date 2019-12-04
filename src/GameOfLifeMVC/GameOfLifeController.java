@@ -28,6 +28,10 @@ public class GameOfLifeController implements GameOfLifeObserver, GameOfLifeViewL
 	@Override
 	public void handleCalculatorViewEvent(GameOfLifeViewEvent e) {
 		if (e.isResizeEvent()) {
+			if (t1.isAlive()) {
+				view._message.setText("Stop auto-play before resizing");
+				return;
+				}
 			int size = model.getBoardSize();
 			JSpotBoard _board = new JSpotBoard(size,size);
 			
@@ -153,7 +157,10 @@ public class GameOfLifeController implements GameOfLifeObserver, GameOfLifeViewL
 			
 			view.setBoard(model.getBoard());
 		} else if (e.isSliderEvent()) {
-			if (t1.isAlive()) {return;}
+			if (t1.isAlive()) {
+				view._message.setText("Stop auto-play before resizing");
+				return;
+				}
 			SliderEvent event = (SliderEvent) e;
 			
 			model.setBoardSize(event.value);

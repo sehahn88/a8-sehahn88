@@ -22,7 +22,7 @@ import javax.swing.event.ChangeListener;
 public class GameOfLifeView extends JPanel implements ChangeListener, ActionListener, SpotListener {
 	
 	JSpotBoard _board;		
-	private JLabel _message;		
+	JLabel _message;		
 	private JSlider boardSizeSlider;
 	JComboBox<String> birthThreshMin;
 	JComboBox<String> birthThreshMax;
